@@ -1,0 +1,63 @@
+#include <stdio.h>
+
+#define TAMANHO_MAX 100
+
+typedef struct {
+    int elementos[TAMANHO_MAX];
+    int tamanho;
+} ListaEstatica; 
+
+void inicializarLista(ListaEstatica* lista) {  
+    lista->tamanho = 0;
+}
+
+void adicionarElemento(ListaEstatica* lista, int x) {  
+    if (lista->tamanho < TAMANHO_MAX) {
+        lista->elementos[lista->tamanho] = x;
+        lista->tamanho++;
+    } else {
+        printf("Erro: Lista cheia - Overflow\n");
+    }
+}
+
+void imprimirElementos(ListaEstatica* lista) {  
+    printf("Lista Estatica:\n");
+    int i;  
+    for (i = 0; i < lista->tamanho; i++) {
+        printf("Elemento da posicao [%d]: %d\n", i, lista->elementos[i]);
+    }
+}
+
+void reverterLista(ListaEstatica* lista) {  
+    int inicio = 0;
+    int fim = lista->tamanho - 1;
+
+    while (inicio < fim) {
+        int temp = lista->elementos[inicio];
+        lista->elementos[inicio] = lista->elementos[fim];
+        lista->elementos[fim] = temp;
+
+        inicio++;
+        fim--;
+    }
+}
+
+int main() {
+    ListaEstatica minhaLista; 
+    inicializarLista(&minhaLista);
+
+    adicionarElemento(&minhaLista, 15);
+    adicionarElemento(&minhaLista, 25);
+    adicionarElemento(&minhaLista, 45);
+    adicionarElemento(&minhaLista, 60);
+
+    printf("Lista original:\n");
+    imprimirElementos(&minhaLista);
+
+    reverterLista(&minhaLista);
+
+    printf("\nLista invertida:\n");
+    imprimirElementos(&minhaLista);
+
+    return 0;
+}
