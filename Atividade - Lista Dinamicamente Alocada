@@ -1,0 +1,85 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+
+void addElement(Node **list, int value) {
+    Node *newNode = (Node *)malloc(sizeof(Node));
+
+    if (newNode == NULL) {
+        fprintf(stderr, "Falha ao alocar memoria!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    newNode->data = value;
+    newNode->next = *list;
+    *list = newNode;
+}
+
+void printList(Node *list) {
+    while (list != NULL) {
+        printf("[%d] ", list->data);
+        list = list->next;
+    }
+    printf("\n");
+}
+
+void freeList(Node *list) {
+    Node *current = list;
+    Node *nextNode = NULL;
+
+    while (current != NULL) {
+        nextNode = current->next;
+        free(current);
+        current = nextNode;
+    }
+}
+
+Node *findElement(Node *list, int x) {
+    while (list != NULL && list->data != x) {
+        list = list->next;
+    }
+
+    if (list == NULL) {
+        printf("\nValor nao encontrado\n");
+    } else {
+        printf("\nValor encontrado\n");
+    }
+
+    return list;
+}
+
+int countElements(Node *list) {
+    int count = 0;
+
+    while (list != NULL) {
+        list = list->next;
+        count++;
+    }
+    printf("Numero de elementos na lista: %d\n", count);
+
+    return count;
+}
+
+int main() {
+    Node *list = NULL;
+
+    addElement(&list, 15);
+    addElement(&list, 30);
+    addElement(&list, 50);
+
+    printf("Lista: ");
+    printList(list);
+
+    findElement(list, 30);
+
+    int numElements = countElements(list);
+    printf("Numero de elementos na lista: %d\n", numElements);
+
+    freeList(list);
+
+    return 0;
+}
