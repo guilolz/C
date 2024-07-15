@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+#define TAMANHO_MAX 100
+
+typedef struct {
+    int elementos[TAMANHO_MAX];
+    int tamanho;
+} ListaEstatica;  
+
+void inicializarLista(ListaEstatica* lista) {  
+    lista->tamanho = 0;
+}
+
+void adicionarElemento(ListaEstatica* lista, int x) { 
+    if (lista->tamanho < TAMANHO_MAX) {
+        lista->elementos[lista->tamanho] = x;
+        lista->tamanho++;
+    } else {
+        printf("Erro: Lista cheia - Overflow\n");
+    }
+}
+
+void adicionarElementoOrdenado(ListaEstatica* lista, int x) {  
+    if (lista->tamanho < TAMANHO_MAX) {
+        int i;
+        for (i = lista->tamanho - 1; i >= 0 && lista->elementos[i] > x; i--) {
+            lista->elementos[i + 1] = lista->elementos[i];
+        }
+        lista->elementos[i + 1] = x;
+        lista->tamanho++;
+    } else {
+        printf("Erro: Lista cheia - Overflow\n");
+    }
+}
+
+void imprimirElementos(ListaEstatica* lista) {  
+    printf("Lista Estatica:\n");
+    int i;  
+    for (i = 0; i < lista->tamanho; i++) {
+        printf("Elemento da posicao [%d]: %d\n", i, lista->elementos[i]);
+    }
+}
+
+int main() {
+    ListaEstatica minhaLista;  
+    inicializarLista(&minhaLista);
+
+    adicionarElementoOrdenado(&minhaLista, 15);
+    adicionarElementoOrdenado(&minhaLista, 25);
+    adicionarElementoOrdenado(&minhaLista, 45);
+    adicionarElementoOrdenado(&minhaLista, 60);
+
+    imprimirElementos(&minhaLista);
+
+    return 0;
+}
