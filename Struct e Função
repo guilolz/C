@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+struct ponto{
+    float x;
+    float y;
+};
+
+struct aluno{
+    char nome[50];
+    int idade;
+    float nota;
+};
+
+float distancia(struct ponto p1,struct ponto p2){
+    return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+}
+
+int main(){
+    struct ponto p1,p2;
+
+    printf("Informe o valor de x e y para o ponto 1:");
+    scanf("%f %f", &p1.x, &p1.y);
+    printf("Informe o valor de x e y para o ponto 2:");
+    scanf("%f %f", &p2.x, &p2.y);
+
+    printf("O valor de x e y do ponto 1 é: %.2f %.2f\n", p1.x,p1.y);
+    printf("O valor de x e y do ponto 2 é: %.2f %.2f\n", p2.x,p2.y);
+    
+    printf("A distancia entre os dois pontos é: %.2f\n",distancia(p1,p2));
+
+    struct aluno alunos[3];
+
+    for(int i = 0; i < 3; i++){
+        printf("Informe o nome do aluno %d:",i+1);
+        scanf("%s",alunos[i].nome);
+        printf("\nInforme a idade do aluno %d:",i+1);
+        scanf("%d",&alunos[i].idade);
+        printf("\nInforme a nota do aluno %d:",i+1);
+        scanf("%f",&alunos[i].nota);
+    }
+
+    for(int i = 0; i < 3; i++){
+        printf("\nO nome do aluno %d é: %s",i+1,alunos[i].nome);
+        printf("\nA idade do aluno %d é: %d",i+1,alunos[i].idade);
+        printf("\nA nota do aluno %d é: %.2f",i+1,alunos[i].nota);
+    }    
+
+    return 0;
+}
